@@ -3,9 +3,7 @@
 Juego consistente en un paddle y una pelota en la parte inferior de la 
 pantalla, con un grupo de 12 bloques, distribuidos en dos filas de a 6.
 
-<img width="572" height="381" alt="Captura de pantalla 2026-11-11 102445"
-  src="https://github.com/user-attachments/assets/680b500
-  8-55c4-43c4-84a1-b27891aceec4" /><br>
+<img width="572" height="381" alt="Captura de pantalla 2026-11-11 102445" src="https://github.com/user-attachments/assets/1f2d8b81-67a4-4cd4-92b1-e9831aa16173" />
 
 El paddle, se encuentra en la parte inferior de la pantalla, que se mueve en 
 concordancia con unos botones, y la pelota se lanza con la tecla "scape", en forma 
