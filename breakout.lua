@@ -1,0 +1,271 @@
+
+Controls("touch")
+cursor("point")
+
+function _init()
+
+end
+local game ={
+state = {
+juego = true, 
+ended = false,
+win = false
+}
+}
+
+local Clase = {}
+Clase.__index = Clase
+function Clase.new(x,y)
+return setmetatable({
+x=x,y=y},Clase)
+end
+
+local paddle={}
+paddle[1]= Clase.new(0,30)
+
+
+
+function Clase:move(minX,maxX)
+ 
+ 
+if btnp(2)then 
+ self.x= math.min(self.x+5,maxX)
+ 
+elseif btnp(1)then
+ self.x = math.max(self.x-5,minX)
+
+end
+
+end
+
+
+
+local lanze = false
+local cos_x = 0 
+local sen_y = 0 
+local circulo ={x=0,y=0, w=1,h=1}
+
+
+function circulus_false(circulo_x,
+circulo_y) 
+
+circulo.x =paddle[1].x+4
+
+circulo.y = 36
+
+return circulo.x,circulo.y
+end
+
+function ration()
+
+local relativo =
+ (circulo.x -paddle[1].x)/8
+relativo = math.max(0,
+math.min(1,relativo))
+
+local new_angle = 135 -relativo*90
+local a = math.rad(new_angle)
+
+  cos_x = math.cos(a)
+  sen_y = math.sin(a)
+return cos_x, sen_y
+end
+
+function collision_paredes()
+
+if circulo.x<=1  then
+
+circulo.x =1 
+cos_x =-cos_x
+end
+
+if circulo.x>=64 then
+
+circulo.x = 64
+cos_x =-cos_x
+end
+
+if circulo.y <=10 then
+
+circulo.y = 10 
+sen_y =-sen_y
+end
+if circulo.y>=36 and
+circulo.x+3 > paddle[1].x and
+circulo.x< paddle[1].x+10 then
+
+sen_y =-sen_y
+cos_x = cos_x
+ration()
+end
+end
+
+local Cuadrado={}
+Cuadrado.__index = Cuadrado
+
+function Cuadrado.new(x,y,w,h,
+clr,aparece,golpe_ball)
+local instancia = setmetatable(
+{x=x,y=y,w=w,h=h,clr=clr},Cuadrado)
+setmetatable(instancia,Cuadrado)
+instancia.aparece = aparece
+instancia.golpe_ball = golpe_ball
+instancia.golpes = 0 
+return instancia
+end
+
+local ladrillos = {}
+
+for i=1,6 do 
+ladrillos[i]=Cuadrado.new(
+i*25,50,20,10,12,true,false
+)
+ladrillos[i+6]=Cuadrado.new(
+i*25,30,20,10,9,true,false
+)
+end
+
+function collision_bc(circulo_x,
+circulo_y,circulo_width,
+circulo_height,cdr_x,cdr_y,
+cdr_width,cdr_height)
+
+if circulo_x +circulo_width >cdr_x and
+circulo_x< cdr_x + cdr_width and
+circulo_y+circulo_height>cdr_y and
+circulo_y < cdr_y +cdr_height then
+return true
+else
+return false
+end
+end
+
+local m = 0 
+
+function Cuadrado:cero()
+local col = collision_bc(circulo.x*3,
+circulo.y*3,circulo.w,circulo.h,self.x,
+self.y,self.w,self.h)
+
+if col and not
+self.golpe_ball then 
+self.golpe_ball = true
+self.golpes = self.golpes +1
+if self.aparece then 
+sen_y = -sen_y
+end
+
+if self.golpes == 2 then
+self.aparece = false
+m=m+1
+end
+
+elseif not col then 
+self.golpe_ball = false
+end
+end
+
+function reset_juego()
+lanze = false
+m=0 
+paddle[1].x =0 
+paddle[1].y = 30
+circulo.x = paddle[1].x+1
+circulo.y = 36
+
+for i,v in ipairs(ladrillos)do
+v.aparece = true
+v.golpes = 0 
+v.golpe_ball = false
+end
+
+ game.state["juego"]= true
+ game.state["ended"]=false
+ game.state["win"]=false
+end
+
+
+function _update()
+
+
+paddle[1]:move(0,56)
+
+
+if lanze == false then 
+circulus_false(circulo.x,circulo.y)
+ration()
+else
+
+circulo.x =circulo.x +cos_x*0.4
+circulo.y = circulo.y-sen_y*0.4
+collision_paredes()
+end
+
+for i,v in ipairs(ladrillos)do
+v:cero()
+end
+
+if circulo.y>=37 then
+game.state["ended"]=true
+game.state["juego"]=false
+game.state["win"]=false
+end
+
+if m == 12 then
+game.state["ended"]=false
+game.state["juego"]=false
+game.state["win"]= true
+end
+
+end
+
+
+function _keypressed(key)
+if key == "space" then 
+if game.state["ended"]or
+game.state["win"] then
+reset_juego()
+else
+lanze = true
+end
+
+end
+
+end
+
+function _draw()
+
+if game.state["juego"] then
+
+clear()
+cam()
+cam("scale",3,3)
+Sprite(1,paddle[1].x,paddle[1].y)
+
+
+color(7)
+circle(circulo.x,circulo.y,1)
+cam()
+
+for i,v in ipairs(ladrillos)do
+if v.aparece then
+color(v.clr)
+rect(v.x,v.y,v.w,v.h)
+end
+end
+
+color(7)
+print("Score:",55,5)
+print(m,90,5)
+
+elseif game.state["ended"]then
+clear()
+color(7)
+print("GAME OVER",50,50)
+
+elseif game.state["win"]then
+clear()
+color(7)
+print("YOU WIN",50,50)
+end
+end
