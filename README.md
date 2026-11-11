@@ -4,7 +4,7 @@ Juego consistente en un paddle y una pelota en la parte inferior de la
 pantalla, con un grupo de 12 bloques, distribuidos en dos filas de 6 bloques, 
 cada fila con un color distinto, azul claro, y naranja.
 
-<img width="500" height="300" alt="Captura de pantalla 2026-11-11 102445" src="https://github.com/user-attachments/assets/1f2d8b81-67a4-4cd4-92b1-e9831aa16173" /><br>
+<img width="500" height="350" alt="Captura de pantalla 2026-11-11 102445" src="https://github.com/user-attachments/assets/1f2d8b81-67a4-4cd4-92b1-e9831aa16173" /><br>
 
 El paddle, se encuentra en la parte inferior de la pantalla, que se mueve en 
 concordancia con unos botones, y la pelota se lanza con la tecla "scape", en forma 
