@@ -14,7 +14,7 @@ Se realizan las colisiones entre
 los ladrillos y la pelota, con angulos de izquierda a derecha
 acorde como caiga la pelota en el paddle. 
 
-<img width="500" height="381" alt="884926366_1313031297573404_160201600886340136_n" 
+<img width="500" height="360" alt="884926366_1313031297573404_160201600886340136_n" 
   src="https://github.com/user-attachments/assets/84be4bf3-a8c1-46be-9744-7024899f71d1"
   /><br>
 
