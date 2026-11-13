@@ -17,9 +17,10 @@ acorde como caiga la pelota en el paddle.
 <p align="center"><br>
 <img width="400" height="300" alt="884926366_1313031297573404_160201600886340136_n" 
   src="https://github.com/user-attachments/assets/84be4bf3-a8c1-46be-9744-7024899f71d1"
-  />
-  <br>
+  /><br>
 </p>
+
+
 El puntaje  aparece en la parte superior de la pantalla, se mueve +1, cuando se golpea 
 2 veces cada ladrillo, y en consecuencia el ladrillo desaparece, y la pelota puede
 conducirse sin colisiones. 
